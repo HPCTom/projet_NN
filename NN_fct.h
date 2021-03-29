@@ -7,6 +7,7 @@ long double d_sigmoid(long double x)
 { return sigmoid(x) * (1 - sigmoid(x)); }
 
 void transpose(long double *W_XT,long double *W_X, int Taille_output, int Taille_layer){
+		//fct qui transpose une matrice stockée dans un tableau 1D
 		for(int i = 0; i < Taille_output; i++){
 			for(int j = 0; j < Taille_layer; j++){
         int offset1 = i * Taille_layer + j;
@@ -14,33 +15,11 @@ void transpose(long double *W_XT,long double *W_X, int Taille_output, int Taille
 				W_XT[offset2] = W_X[offset1];
 			}
 		}
-    /*
-    printf("W_O \n");
-    int row, columns;
-    for (row=0; row<TAILLE_OUTPUT; row++)
-    {
-      for(columns=0; columns<TAILLE_LAYER; columns++)
-      {
-        int offset = row * TAILLE_LAYER + columns;
-        printf("%Lf     ", W_X[offset]);
-      }
-      printf("\n");
-    }
-    printf("W_OT\n");
-    int row2, columns2;
-    for(row2=0; row2<TAILLE_LAYER; row2++)
-    {
-      for (columns2=0; columns2<TAILLE_OUTPUT; columns2++)
-      {
-        int offset2 = row2 * TAILLE_OUTPUT + columns2;
-        printf("%Lf     ", W_XT[offset2]);
-      }
-      printf("\n");
-    }
-    */
 	}
 
-void multiplAV(long double *A, long double *V, long double *ans, int Taille_layer, int Taille_ouput){
+void multiplAV(long double *A, long double *V, long double *ans, int Taille_layer,
+							 int Taille_ouput){
+//fct qui effectue une mutiliplication matrice vecteur pour une matrice stockée dans un tableau 1D
   int row, columns;
   for(row=0; row<TAILLE_LAYER; row++)
   {
@@ -48,13 +27,13 @@ void multiplAV(long double *A, long double *V, long double *ans, int Taille_laye
     {
       int offset = row * TAILLE_OUTPUT + columns;
       ans[row] += A[offset]*V[columns];
-			//printf("anss = %Lf\n",ans[row]);
     }
   }
 }
 
-void fct_cout(long double *SOLUTION,long double *OUTPUT,long double *COUT,int n, long double *Solution,
-              long double *Output,int Taille_output){
+void fct_cout(long double *SOLUTION,long double *OUTPUT,long double *COUT,
+							long double *Solution,long double *Output,int Taille_output){
+	//Calcul le cout pour la condtion d'arret
 	COUT[0] = 0;
   for (int j=0; j<Taille_output; j = j+1){
     COUT[0] += pow((SOLUTION[j]-OUTPUT[j]),2);;
@@ -66,7 +45,18 @@ void fct_eta(long double *eta){
 	eta[0] = 1;
 }
 
-void resultat(long double *OUTPUT,long double *SOLUTION){
+void mem_0(long double *LAYER,long double *OUTPUT,long double *ans,int Taille_layer,
+					 int Taille_output){
+	//réinitialise LAYER et OUTPUT à 0 pour la front_prop et ans pour error_layer
+	memset(LAYER,0.0,Taille_layer*sizeof(long double));
+	memset(OUTPUT,0.0,Taille_output*sizeof(long double));
+	memset(ans,0.0,Taille_layer*sizeof(long double));
+}
+
+void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT){
+	printf("OUTPUT[0] = %Lf \n",OUTPUT[0]);
+	printf("OUTPUT[1] = %Lf \n",OUTPUT[1]);
+	printf("COUT = %Lf \n\n\n",COUT[0]);
 	if (SOLUTION[0] == 1.0){
 		printf("L'image est cancéreuse\n");
 		if (OUTPUT[1]-OUTPUT[0] < 0){

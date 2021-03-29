@@ -25,11 +25,13 @@ void init_Output(long double *OUTPUT, int Taille_output){
 }
 
 void init_Solution(long double *SOLUTION,int Taille_output){
-	SOLUTION[0] = 0.0;
-  SOLUTION[1] = 1.0;
+  // Initialise la pseudo solution pour l'INPUT aléatoire
+	SOLUTION[0] = 1.0;
+  SOLUTION[1] = 0.0;
 	}
 
-void init_W(long double *W_L, long double *W_O, int Taille_input, int Taille_layer, int Taille_output){
+void init_W(long double *W_L, long double *W_O, int Taille_input,
+            int Taille_layer, int Taille_output){          
 		for (int i=0; i<Taille_layer; i = i+1){
 			for (int j=0; j<Taille_input; j = j+1){
         int offset = i * Taille_input + j;
