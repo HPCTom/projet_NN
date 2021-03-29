@@ -40,7 +40,7 @@ void fct_cout(long double *SOLUTION,long double *OUTPUT,long double *COUT){
 }
 
 void fct_eta(long double *eta){
-	eta[0] = 10;
+	eta[0] = 0.01;
 }
 
 void mem_0(long double *LAYER,long double *OUTPUT,long double *ans){

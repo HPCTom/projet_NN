@@ -89,6 +89,11 @@ int PNG_to_INPUT(long double *INPUT, long double *SOLUTION){
 	char chemin[100];
 	char nom[100];
 	strcpy(chemin,"Data");
+	FILE* ptr_file = NULL;
+	if((ptr_file = fopen("liste.txt","r")) == NULL){
+		//fclose(ptr_file);
+		lireDossierRec(chemin);
+	}
 	if ((piocherFichier(nom))==1){  //il verifie si c'est un dossier ou fichier
 		read_png_file(nom);
 		process_file();
