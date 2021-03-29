@@ -1,4 +1,7 @@
 #include "NN.h"
+#include "lirepng.h"
+
+
 
 
 int main(int argc, char *argv[])
@@ -25,16 +28,30 @@ long double *Z_l = malloc(TAILLE_LAYER * sizeof(long double)); //Dans sigmoid la
 
 long double *ans = calloc(TAILLE_LAYER , sizeof(long double));
 long double *eta = calloc(1,sizeof(long double));
+char nom[100];
 
 init_b(b_L,TAILLE_LAYER);
 init_b(b_O,TAILLE_OUTPUT);
-init_Input(INPUT);
+//init_Input(INPUT);
+PNG_to_INPUT(INPUT,SOLUTION);
 init_Layer(LAYER);
 init_Output(OUTPUT);
 init_Solution(SOLUTION);
 init_W(W_L,W_O);
 fct_eta(eta);
 COUT[0] = 1.0;
+/*if ((piocherFichier(nom))==1){  //il verifie si c'est un dossier ou fichier
+            //strcpy(chemin,save);
+            printf("Pioche l'image %s\n",nom);
+           // strcat(chemin, fichierLu -> d_name);
+            read_png_file(nom);
+            process_file(I);
+            }
+            if((strstr(nom,"ss0")!= NULL)){
+                SOLUTION[0]=0.0;
+            }else if((strstr(nom,"ss1"))!=NULL){
+                SOLUTION[0]=1.0;
+            }*/
 
 presentation();
 
