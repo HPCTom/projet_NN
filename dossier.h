@@ -9,4 +9,3 @@
 int nombreAleatoire(int nombreMax);
 int piocherFichier(char *fichierPioche);
 void lireDossierRec(char* chemin_de_base);
-
