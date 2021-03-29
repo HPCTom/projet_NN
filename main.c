@@ -1,4 +1,7 @@
 #include "NN.h"
+#include "lirepng.h"
+
+
 
 
 int main(int argc, char *argv[])
@@ -28,7 +31,7 @@ long double *eta = calloc(1,sizeof(long double));
 
 init_b(b_L,TAILLE_LAYER);
 init_b(b_O,TAILLE_OUTPUT);
-init_Input(INPUT);
+//init_Input(INPUT);
 init_Layer(LAYER);
 init_Output(OUTPUT);
 init_Solution(SOLUTION);
@@ -40,8 +43,8 @@ presentation();
 
 double lim = 0.001;
 
-while(COUT[0]>lim){
-
+while(1){
+PNG_to_INPUT(INPUT,SOLUTION);
 mem_0(LAYER,OUTPUT,ans);
 front_prop(Z_L,Z_l,INPUT,LAYER,OUTPUT,b_L,b_O,W_L,W_O);
 fct_cout(SOLUTION,OUTPUT,COUT);
@@ -53,9 +56,10 @@ error_layer(ans,W_OT,ERROR_LAYER,ERROR_OUTPUT,Z_l);
 
 backprop(W_L, W_O, b_L, b_O, eta, ERROR_OUTPUT, ERROR_LAYER, INPUT, LAYER, OUTPUT);
 
+resultat(OUTPUT,SOLUTION,COUT);
 }
 
-resultat(OUTPUT,SOLUTION,COUT);
+//resultat(OUTPUT,SOLUTION,COUT);
 
 free_all(INPUT,LAYER,OUTPUT,SOLUTION,COUT,ERROR_OUTPUT,ERROR_LAYER,W_L,W_LT,W_O,W_OT,b_L,b_O,Z_L,Z_l,ans,eta);
 return 0;
