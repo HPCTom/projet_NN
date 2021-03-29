@@ -1,5 +1,4 @@
 #include "NN.h"
-#include "NN_init.h"
 
 
 int main(int argc, char *argv[])
@@ -37,30 +36,32 @@ init_W(W_L,W_O,TAILLE_INPUT,TAILLE_LAYER,TAILLE_OUTPUT);
 fct_eta(eta);
 COUT[0] = 1.0;
 
-while(COUT[0]>0.001){
-front_prop(Z_L,Z_l,INPUT,LAYER,OUTPUT,b_L,b_O,W_L,W_O,TAILLE_INPUT,TAILLE_LAYER,TAILLE_OUTPUT);
+presentation(NB_LAYER,TAILLE_INPUT,TAILLE_LAYER,TAILLE_OUTPUT);
 
+while(COUT[0]>0.001){
+memset(LAYER,0.0,TAILLE_LAYER*sizeof(long double));
+memset(OUTPUT,0.0,TAILLE_OUTPUT*sizeof(long double));
+memset(Z_l,0.0,TAILLE_LAYER*sizeof(long double));
+memset(Z_L,0.0,TAILLE_OUTPUT*sizeof(long double));
+
+front_prop(Z_L,Z_l,INPUT,LAYER,OUTPUT,b_L,b_O,W_L,W_O,TAILLE_INPUT,TAILLE_LAYER,TAILLE_OUTPUT);
 int trainings = 1;
 fct_cout(SOLUTION,OUTPUT,COUT,trainings,SOLUTION,OUTPUT,TAILLE_OUTPUT);
 error_output(Z_L,ERROR_OUTPUT,SOLUTION,OUTPUT,TAILLE_OUTPUT,trainings);
-
 transpose(W_OT,W_O,TAILLE_OUTPUT,TAILLE_LAYER);
 error_layer(ans,W_OT,ERROR_LAYER,ERROR_OUTPUT,Z_l,TAILLE_LAYER);
 memset(ans,0.0,TAILLE_LAYER*sizeof(long double));
 backprop(W_L, W_O, b_L, b_O, eta, ERROR_OUTPUT, ERROR_LAYER, INPUT, LAYER, OUTPUT,TAILLE_LAYER,
          TAILLE_OUTPUT,TAILLE_INPUT);
 
+}
 printf("OUTPUT[0] = %Lf \n",OUTPUT[0]);
 printf("OUTPUT[1] = %Lf \n",OUTPUT[1]);
-printf("COUT = %Lf \n",COUT[0]);
-
-memset(LAYER,0.0,TAILLE_LAYER*sizeof(long double));
-memset(OUTPUT,0.0,TAILLE_OUTPUT*sizeof(long double));
-memset(Z_l,0.0,TAILLE_LAYER*sizeof(long double));
-memset(Z_L,0.0,TAILLE_OUTPUT*sizeof(long double));
+printf("COUT = %Lf \n\n\n",COUT[0]);
 
 
-}
+resultat(OUTPUT,SOLUTION);
+
 free(INPUT);
 free(LAYER);
 free(OUTPUT);

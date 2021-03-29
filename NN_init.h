@@ -1,6 +1,5 @@
 #include "Struct.h"
 
-
 void init_b(long double *b, int Taille_b){
   for (int j=0; j<Taille_b; j = j+1){
     b[j] = 1.0;

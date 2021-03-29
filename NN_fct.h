@@ -1,4 +1,4 @@
-#include "Struct.h"
+#include "NN_init.h"
 
 long double sigmoid(long double x)
 { return 1 / (1 + exp(-x)); }
@@ -51,7 +51,6 @@ void multiplAV(long double *A, long double *V, long double *ans, int Taille_laye
 			//printf("anss = %Lf\n",ans[row]);
     }
   }
-	printf("\n");
 }
 
 void fct_cout(long double *SOLUTION,long double *OUTPUT,long double *COUT,int n, long double *Solution,
@@ -66,3 +65,28 @@ void fct_cout(long double *SOLUTION,long double *OUTPUT,long double *COUT,int n,
 void fct_eta(long double *eta){
 	eta[0] = 1;
 }
+
+void resultat(long double *OUTPUT,long double *SOLUTION){
+	if (SOLUTION[0] == 1.0){
+		printf("L'image est cancéreuse\n");
+		if (OUTPUT[1]-OUTPUT[0] < 0){
+			printf("Le réseau détermine que l'image est cancéreuse\n");
+			printf("PARFAIT !\n");
+		}
+		else{
+			printf("Le réseau détermine que l'image n'est pas cancéreuse\n");
+			printf("Sadge ...\n");
+		}
+	}
+	else{
+		printf("L'image n'est pas cancéreuse\n");
+		if (OUTPUT[1]-OUTPUT[0] < 0){
+			printf("Le réseau détermine que l'image est cancéreuse\n");
+			printf("Sadge ...\n");
+		}
+		else{
+			printf("Le réseau détermine que l'image n'est pas cancéreuse\n");
+			printf("PARFAIT !\n");
+		}
+	}
+ }

@@ -1,4 +1,3 @@
-#include "Struct.h"
 #include "NN_fct.h"
 
 void front_prop(long double *Z_L, long double *Z_l, long double *INPUT, long double *LAYER, long double *OUTPUT, long double *b_layer,
