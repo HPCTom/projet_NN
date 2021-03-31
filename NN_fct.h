@@ -54,7 +54,8 @@ void fct_cout(long double *SOLUTION,long double *OUTPUT,long double *COUT){
 }
 
 void fct_eta(long double *eta){
-	eta[0] = 2.0;
+	//Taux d'apprentissage
+	eta[0] = 1.5;
 }
 
 void mem_0(long double *LAYER,long double *OUTPUT,long double *ans){
@@ -65,7 +66,7 @@ void mem_0(long double *LAYER,long double *OUTPUT,long double *ans){
 }
 
 void free_all(long double *INPUT,long double *LAYER,long double *OUTPUT,long double *SOLUTION,long double *COUT,
-							long double *ERROR_OUTPUT,long double *ERROR_LAYER,long double *W_L,long double *W_LT,long double *W_O,
+							long double *ERROR_OUTPUT,long double *ERROR_LAYER,long double *W_L,long double *W_O,
 							long double *W_OT,long double *b_L,long double *b_O,long double *Z_L,long double *Z_l,long double *ans,
 							long double *eta){
 	free(INPUT);
@@ -76,7 +77,6 @@ void free_all(long double *INPUT,long double *LAYER,long double *OUTPUT,long dou
 	free(ERROR_OUTPUT);
 	free(ERROR_LAYER);
 	free(W_L);
-	free(W_LT);
 	free(W_O);
 	free(W_OT);
 	free(b_L);
@@ -87,32 +87,34 @@ void free_all(long double *INPUT,long double *LAYER,long double *OUTPUT,long dou
 	free(eta);
 }
 
-void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT){
+void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT,int run, int pas){
+	//Affichage des runs
+	if(run % pas == 0){
+			printf("                                                  				run : %d\n",run);
 	printf("OUTPUT[0] = %Lf \n",OUTPUT[0]);
 	printf("OUTPUT[1] = %Lf \n",OUTPUT[1]);
-	printf("SOLUTION[0] = %Lf \n",SOLUTION[0]);
-	printf("SOLUTION[1] = %Lf \n",SOLUTION[1]);
 	printf("COUT = %Lf \n",COUT[0]);
 	if (SOLUTION[0] == 1.0){
-		printf("L'image est cancéreuse \t\t\t             ++++\n");
+			printf("L'image est cancéreuse                                ++++\n");
 		if (OUTPUT[1]-OUTPUT[0] < 0){
-			printf("Le réseau détermine que l'image est cancéreuse \t     ++++\n");
+			printf("Le réseau détermine que l'image est cancéreuse        ++++\n");
 			printf("PARFAIT !\n \n");
 		}
 		else{
-			printf("Le réseau détermine que l'image n'est pas cancéreuse ----\n");
-			printf("Sadge ...\n \n");
+			printf("Le réseau détermine que l'image n'est pas cancéreuse  ----\n");
+			printf("NUL !\n \n");
 		}
 	}
 	else{
-		printf("L'image n'est pas cancéreuse \t\t\t     ----\n");
+			printf("L'image n'est pas cancéreuse                          ----\n");
 		if (OUTPUT[1]-OUTPUT[0] < 0){
-			printf("Le réseau détermine que l'image est cancéreuse \t     ++++\n");
-			printf("Sadge ...\n \n");
+			printf("Le réseau détermine que l'image est cancéreuse        ++++\n");
+			printf("NUL !\n \n");
 		}
 		else{
-			printf("Le réseau détermine que l'image n'est pas cancéreuse ----\n");
+			printf("Le réseau détermine que l'image n'est pas cancéreuse  ----\n");
 			printf("PARFAIT !\n \n");
 		}
 	}
  }
+}
