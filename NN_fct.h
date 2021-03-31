@@ -58,11 +58,10 @@ void fct_eta(long double *eta){
 	eta[0] = 1.5;
 }
 
-void mem_0(long double *LAYER,long double *OUTPUT,long double *ans){
-	//réinitialise LAYER et OUTPUT à 0 pour la front_prop et ans pour error_layer
+void mem_0(long double *LAYER,long double *OUTPUT){
+	//réinitialise LAYER et OUTPUT à 0 pour la front_prop
 	memset(LAYER,0.0,TAILLE_LAYER*sizeof(long double));
 	memset(OUTPUT,0.0,TAILLE_OUTPUT*sizeof(long double));
-	memset(ans,0.0,TAILLE_LAYER*sizeof(long double));
 }
 
 void free_all(long double *INPUT,long double *LAYER,long double *OUTPUT,long double *SOLUTION,long double *COUT,

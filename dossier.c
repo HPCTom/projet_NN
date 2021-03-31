@@ -25,12 +25,12 @@ int nombreAleatoire(int nombreMax){
 
     // On compte le nombre de mots dans le fichier (il suffit de compter les
     // entrées \n
-    nombreFichiers = 496777; //555047
+    nombreFichiers = 496793; //555047
     // do
     // {
     //     caractereLu = fgetc(liste);
     //     if (caractereLu == '\n'){
-    //       nombreFichiers++;
+    //       nombreFichiers
     //     }
     // } while(caractereLu != EOF);
 
@@ -64,11 +64,13 @@ void lireDossierRec(char* chemin_de_base) {
   strcpy(save,chemin_de_base);
   strcpy(chemin,chemin_de_base);
 
-  rep = opendir(chemin_de_base);
-  if(rep == NULL) {
-		perror("opendir: erreur lors de l'ouverture\n");
-		printf("%s\n",strerror(errno));
-  }
+  // rep = opendir(chemin_de_base);
+  // if(rep == NULL) {
+	// 	perror("opendir: erreur lors de l'ouverture\n");
+	// 	printf("%s\n",strerror(errno));
+  // }
+//
+
   liste = fopen("liste.txt","a");
   while((ptr_fichier = readdir(rep)) != NULL){
       if((strcmp(ptr_fichier->d_name,"..")) && (strcmp(ptr_fichier->d_name,".")) != 0)  {

@@ -11,7 +11,7 @@ long double* INPUT =  malloc(TAILLE_INPUT*sizeof(long double)); //Input layer
 long double* LAYER = malloc(TAILLE_LAYER*sizeof(long double)); // Middle Layer
 long double* OUTPUT = malloc(TAILLE_OUTPUT*sizeof(long double)); //
 long double* SOLUTION = malloc(TAILLE_OUTPUT*sizeof(long double));
-long double* COUT = calloc(1,sizeof(long double));
+long double* COUT = malloc(1*sizeof(long double));
 long double* ERROR_OUTPUT = malloc(TAILLE_OUTPUT*sizeof(long double));
 long double* ERROR_LAYER = malloc(TAILLE_LAYER*sizeof(long double));
 
@@ -25,8 +25,8 @@ long double *b_O = malloc(TAILLE_OUTPUT * sizeof(long double));
 long double *Z_L = malloc(TAILLE_OUTPUT * sizeof(long double)); //Dans sigmoid output
 long double *Z_l = malloc(TAILLE_LAYER * sizeof(long double)); //Dans sigmoid layer
 
-long double *ans = calloc(TAILLE_LAYER , sizeof(long double)); //Dans error_layer
-long double *eta = calloc(1,sizeof(long double)); //Taux d'apprentissage à modifier dans NN_fct.h (fct_eta)
+long double *ans = malloc(TAILLE_LAYER * sizeof(long double)); //Dans error_layer
+long double *eta = malloc(1*sizeof(long double)); //Taux d'apprentissage à modifier dans NN_fct.h (fct_eta)
 
 init_b(b_L,TAILLE_LAYER);
 init_b(b_O,TAILLE_OUTPUT);
@@ -42,12 +42,16 @@ int pas = 10;
 
 presentation(pas);
 
-// sleep(3);
+sleep(30);
 
 while(1){
+
 PNG_to_INPUT(INPUT,SOLUTION);
-mem_0(LAYER,OUTPUT,ans);
+
+mem_0(LAYER,OUTPUT);
+
 front_prop(Z_L,Z_l,INPUT,LAYER,OUTPUT,b_L,b_O,W_L,W_O);
+
 fct_cout(SOLUTION,OUTPUT,COUT);
 
 error_output(Z_L,ERROR_OUTPUT,SOLUTION,OUTPUT);
@@ -58,10 +62,10 @@ error_layer(ans,W_OT,ERROR_LAYER,ERROR_OUTPUT,Z_l);
 backprop(W_L, W_O, b_L, b_O, eta, ERROR_OUTPUT, ERROR_LAYER, INPUT, LAYER, OUTPUT);
 
 resultat(OUTPUT,SOLUTION,COUT,run,pas);
+
 run+= 1;
 }
 
-//resultat(OUTPUT,SOLUTION,COUT);
 
 free_all(INPUT,LAYER,OUTPUT,SOLUTION,COUT,ERROR_OUTPUT,ERROR_LAYER,W_L,W_O,W_OT,b_L,b_O,Z_L,Z_l,ans,eta);
 return 0;
