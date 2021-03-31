@@ -34,14 +34,13 @@ init_b(b_O,TAILLE_OUTPUT);
 //init_Input(INPUT);
 init_Layer(LAYER);
 init_Output(OUTPUT);
-init_Solution(SOLUTION);
+//init_Solution(SOLUTION);
 init_W(W_L,W_O);
 fct_eta(eta);
 COUT[0] = 1.0;
 
 presentation();
 
-double lim = 0.001;
 
 while(1){
 PNG_to_INPUT(INPUT,SOLUTION);
