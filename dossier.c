@@ -5,13 +5,11 @@
 
 #include "dossier.h"
 
-int nombreAleatoire(int nombreMax)
-{
-    srand(time(NULL));
-    return (rand() % nombreMax);
+int nombreAleatoire(int nombreMax){
+  //srand(time(NULL));
+  return (rand() % nombreMax);
 }
- int piocherFichier(char *fichierPioche)
-{
+ int piocherFichier(char *fichierPioche){
     FILE* liste = NULL; // Le pointeur de fichier qui va contenir notre fichier
     int nombreFichiers = 0, numFichierChoisi = 0;
     int caractereLu = 0;
@@ -27,17 +25,19 @@ int nombreAleatoire(int nombreMax)
 
     // On compte le nombre de mots dans le fichier (il suffit de compter les
     // entrées \n
-    do
-    {
-        caractereLu = fgetc(liste);
-        if (caractereLu == '\n')
-            nombreFichiers++;
-    } while(caractereLu != EOF);
+    nombreFichiers = 555047;
+    // do
+    // {
+    //     caractereLu = fgetc(liste);
+    //     if (caractereLu == '\n'){
+    //       nombreFichiers++;
+    //     }
+    // } while(caractereLu != EOF);
 
     numFichierChoisi = nombreAleatoire(nombreFichiers); // On pioche un mot au hasard
 
     // On recommence à lire le fichier depuis le début. On s'arrête lorsqu'on est arrivé au bon mot
-    rewind(liste);
+    //rewind(liste);
     while (numFichierChoisi > 0)
     {
         caractereLu = fgetc(liste);
@@ -66,7 +66,7 @@ void lireDossierRec(char* chemin_de_base) {
 
   rep = opendir(chemin_de_base);
   if(rep == NULL) {
-		perror("opendir: erreur lors de l'ouvertur\n");
+		perror("opendir: erreur lors de l'ouverture\n");
 		printf("%s\n",strerror(errno));
   }
   liste = fopen("liste.txt","a");
@@ -78,18 +78,20 @@ void lireDossierRec(char* chemin_de_base) {
         strcat(chemin,ptr_fichier->d_name);
 
         if (strstr(chemin,"png")){
-              fprintf(liste,"%s\n",chemin);
-              strcpy(chemin,save);
-              continue;
+          fprintf(liste,"%s\n",chemin);
+          strcpy(chemin,save);
+          continue;
         }
-
+        fclose(liste);
         lireDossierRec(chemin);
       }
-      else { continue;}
+      else {
+        continue;
+      }
   }
 
-  fclose(liste);
   if((closedir(rep)) == -1){
 		printf("erreur lors de la fermeture du dossier");
 	}
+
 }

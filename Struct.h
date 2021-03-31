@@ -11,7 +11,7 @@
 #define NB_LAYER 1
 
 #define TAILLE_INPUT  2500
-#define TAILLE_LAYER  16
+#define TAILLE_LAYER  20
 #define TAILLE_OUTPUT 2
 
 void presentation(){
