@@ -24,12 +24,6 @@ void init_Output(long double *OUTPUT){
 	}
 }
 
-void init_Solution(long double *SOLUTION){
-  // Initialise la pseudo solution pour l'INPUT aléatoire
-	SOLUTION[0] = 1.0;
-  SOLUTION[1] = 0.0;
-	}
-
 void init_W(long double *W_L, long double *W_O){
 		for (int i=0; i<TAILLE_LAYER; i = i+1){
 			for (int j=0; j<TAILLE_INPUT; j = j+1){
