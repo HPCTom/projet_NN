@@ -25,7 +25,7 @@ int nombreAleatoire(int nombreMax){
 
     // On compte le nombre de mots dans le fichier (il suffit de compter les
     // entrées \n
-    nombreFichiers = 555047;
+    nombreFichiers = 496777; //555047
     // do
     // {
     //     caractereLu = fgetc(liste);
