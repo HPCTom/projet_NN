@@ -85,7 +85,7 @@ void process_file(void)
 
 }
 
-int PNG_to_INPUT(long double *INPUT, long double *SOLUTION){
+int PNG_to_INPUT(long double *INPUT, long double *SOLUTION,int* nb_0, int* nb_1){
 	char chemin[100];
 	char nom[100];
 	strcpy(chemin,"Data");
@@ -97,17 +97,27 @@ int PNG_to_INPUT(long double *INPUT, long double *SOLUTION){
 	}
 	*/
 	if ((piocherFichier(nom))==1){  //il verifie si c'est un dossier ou fichier
+		if ((strstr(nom,"/0/")) !=0){
+			float R =  (float)(rand()%10000) / 100 ;
+			if (R <= 28.38){
+				while((strstr(nom,"/0/")) !=NULL){
+					piocherFichier(nom);
+				}
+			}
+		}
 		//printf("nom = %s\n",nom);
 		read_png_file(nom);
 		process_file();
 	}
-	if((strstr(nom,"ss0")!= NULL)){
+	if((strstr(nom,"ss0")!= NULL)){ // Non cancéreu
 		SOLUTION[0]=0.0;
 		SOLUTION[1]=1.0;
+		*nb_0 = *nb_0 + 1;
 	}
-	else if((strstr(nom,"ss1"))!=NULL){
+	else if((strstr(nom,"ss1"))!=NULL){ //cancéreu
 		SOLUTION[0]=1.0;
 		SOLUTION[1]=0.0;
+		*nb_1 = *nb_1 + 1;
 	}
  int k =0;
 		for (int x=0; x < 50; x++){

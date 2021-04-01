@@ -10,7 +10,7 @@ void front_prop(long double *Z_L, long double *Z_l, long double *INPUT,
         LAYER[i] = LAYER[i] + W_L[offset]*INPUT[j];
 			}
       Z_l[i] = LAYER[i];
-			LAYER[i] = sigmoid(LAYER[i]+b_layer[i]);
+			LAYER[i] = sigmoid(LAYER[i]-b_layer[i]);
 		 }
 		 //deuxième propagation Layer à Output
 		for (int i=0; i<TAILLE_OUTPUT; i++){
@@ -19,7 +19,7 @@ void front_prop(long double *Z_L, long double *Z_l, long double *INPUT,
 				OUTPUT[i] = OUTPUT[i] + W_O[offset]*LAYER[j];
 			}
       Z_L[i] = OUTPUT[i];
-			OUTPUT[i] = sigmoid(OUTPUT[i]+b_output[i]);
+			OUTPUT[i] = sigmoid(OUTPUT[i]-b_output[i]);
 		}
   }
 

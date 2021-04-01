@@ -38,7 +38,12 @@ COUT[0] = 1.0;
 
 
 int run = 0;
-int pas = 10;
+int pas = 5;
+int nb_0 = 0;
+int nb_1 = 0;
+int bon = 0;
+int faux = 0;
+int null = 0;
 
 presentation(pas);
 
@@ -46,7 +51,7 @@ sleep(30);
 
 while(1){
 
-PNG_to_INPUT(INPUT,SOLUTION);
+PNG_to_INPUT(INPUT,SOLUTION,&nb_0,&nb_1);
 
 mem_0(LAYER,OUTPUT);
 
@@ -61,9 +66,10 @@ error_layer(ans,W_OT,ERROR_LAYER,ERROR_OUTPUT,Z_l);
 
 backprop(W_L, W_O, b_L, b_O, eta, ERROR_OUTPUT, ERROR_LAYER, INPUT, LAYER, OUTPUT);
 
-resultat(OUTPUT,SOLUTION,COUT,run,pas);
+resultat(OUTPUT,SOLUTION,COUT,run,pas,nb_0,nb_1,&bon,&faux,&null);
 
 run+= 1;
+
 }
 
 

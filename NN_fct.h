@@ -55,7 +55,7 @@ void fct_cout(long double *SOLUTION,long double *OUTPUT,long double *COUT){
 
 void fct_eta(long double *eta){
 	//Taux d'apprentissage
-	eta[0] = 1.5;
+	eta[0] = 2.0;
 }
 
 void mem_0(long double *LAYER,long double *OUTPUT){
@@ -86,34 +86,98 @@ void free_all(long double *INPUT,long double *LAYER,long double *OUTPUT,long dou
 	free(eta);
 }
 
-void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT,int run, int pas){
+void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT,int run, int pas,
+							int nb_0, int nb_1, int* bon, int* faux, int* null){
 	//Affichage des runs
 	if(run % pas == 0){
-			printf("                                                  				run : %d\n",run);
+			printf("                                                  		           run : %d\n",run+1);
+			printf("                                                  			  NB 0 : %d\n",nb_0);
+			printf("                                                  			  NB 1 : %d\n",nb_1);
 	printf("OUTPUT[0] = %Lf \n",OUTPUT[0]);
 	printf("OUTPUT[1] = %Lf \n",OUTPUT[1]);
 	printf("COUT = %Lf \n",COUT[0]);
+
+	///////////////////////
 	if (SOLUTION[0] == 1.0){
-			printf("L'image est cancéreuse                                ++++\n");
-		if (OUTPUT[1]-OUTPUT[0] < 0){
-			printf("Le réseau détermine que l'image est cancéreuse        ++++\n");
-			printf("PARFAIT !\n \n");
+				printf("L'image est cancéreuse                                          ++++\n");
+		if (OUTPUT[1]-OUTPUT[0] <= 0){
+			if(fabs(OUTPUT[1]-OUTPUT[0]) > 0.8){
+				printf("Le réseau détermine que l'image n'est pas cancéreuse            ----\n");
+				printf("FAUX !\n\n");
+				*faux = *faux+1;
+				printf("NB BON : %d\n",*bon);
+				printf("NB FAUX : %d\n",*faux);
+				printf("NB NULL : %d\n",*null);
+			}
+			else{
+				printf("Le réseau ne peut pas conclure convenablement                   0000\n");
+				printf("NULL !\n\n");
+				*null = *null + 1;
+				printf("NB BON : %d\n",*bon);
+				printf("NB FAUX : %d\n",*faux);
+				printf("NB NULL : %d\n",*null);
 		}
-		else{
-			printf("Le réseau détermine que l'image n'est pas cancéreuse  ----\n");
-			printf("NUL !\n \n");
 		}
-	}
+			else if (OUTPUT[1]-OUTPUT[0] >= 0){
+				if(fabs(OUTPUT[1]-OUTPUT[0]) > 0.8){
+				printf("Le réseau détermine que l'image est cancéreuse                  ++++\n");
+					printf("BON !\n\n");
+					*bon = *bon+1;
+					printf("NB BON : %d\n",*bon);
+					printf("NB FAUX : %d\n",*faux);
+					printf("NB NULL : %d\n",*null);
+				}
+				else{
+				printf("Le réseau ne peut pas conclure convenablement                   0000\n");
+					printf("NULL !\n \n");
+					*null = *null +1;
+					printf("NB BON : %d\n",*bon);
+					printf("NB FAUX : %d\n",*faux);
+					printf("NB NULL : %d\n",*null);
+			}
+			}
+		}
+
+
+	///////////////////////
 	else{
-			printf("L'image n'est pas cancéreuse                          ----\n");
-		if (OUTPUT[1]-OUTPUT[0] < 0){
-			printf("Le réseau détermine que l'image est cancéreuse        ++++\n");
-			printf("NUL !\n \n");
+				printf("L'image est n'est pas cancéreuse                                ----\n");
+	if (OUTPUT[1]-OUTPUT[0] <= 0){
+		if(fabs(OUTPUT[1]-OUTPUT[0]) > 0.8){
+				printf("Le réseau détermine que l'image n'est pas cancéreuse            ----\n");
+			printf("BON !\n\n");
+			*bon = *bon+1;
+			printf("NB BON : %d\n",*bon);
+			printf("NB FAUX : %d\n",*faux);
+			printf("NB NULL : %d\n",*null);
 		}
 		else{
-			printf("Le réseau détermine que l'image n'est pas cancéreuse  ----\n");
-			printf("PARFAIT !\n \n");
-		}
+			printf("Le réseau ne peut pas conclure convenablement                   0000\n");
+			printf("NULL !\n\n");
+			*null = *null + 1;
+			printf("NB BON : %d\n",*bon);
+			printf("NB FAUX : %d\n",*faux);
+			printf("NB NULL : %d\n",*null);
 	}
+	}
+		else if (OUTPUT[1]-OUTPUT[0] >= 0){
+			if(fabs(OUTPUT[1]-OUTPUT[0]) > 0.8){
+				printf("Le réseau détermine que l'image est cancéreuse                  ++++\n");
+				printf("FAUX !\n \n");
+				*faux = *faux+1;
+				printf("NB BON : %d\n",*bon);
+				printf("NB FAUX : %d\n",*faux);
+				printf("NB NULL : %d\n",*null);
+		}
+			else{
+				printf("Le réseau ne peut pas conclure convenablement                   0000\n");
+				printf("NULL !\n\n");
+				*null = *null + 1;
+				printf("NB BON : %d\n",*bon);
+				printf("NB FAUX : %d\n",*faux);
+				printf("NB NULL : %d\n",*null);
+		}
+		}
  }
+}
 }
