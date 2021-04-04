@@ -20,6 +20,24 @@ long double d_sigmoid(long double x){
 	// }
 }
 
+long double relu(long double x){
+	if (x<0){
+	 	return 0;
+	}
+	else{
+	 	return x;
+	}
+}
+
+long double d_relu(long double x){
+	if (x<0){
+		return 0;
+	}
+	else{
+		return 1;
+	}
+}
+
 void transpose(long double *W_XT,long double *W_X){
 		//fct qui transpose une matrice stockée dans un tableau 1D
 		for(int i = 0; i < TAILLE_OUTPUT; i++){
@@ -67,7 +85,8 @@ void mem_0(long double *LAYER,long double *OUTPUT){
 void free_all(long double *INPUT,long double *LAYER,long double *OUTPUT,long double *SOLUTION,long double *COUT,
 							long double *ERROR_OUTPUT,long double *ERROR_LAYER,long double *W_L,long double *W_O,
 							long double *W_OT,long double *b_L,long double *b_O,long double *Z_L,long double *Z_l,long double *ans,
-							long double *eta){
+							long double *eta, long double *IMAGE, long double *CONVOLUTION, long double *W_C, long double *POOLING,
+							long double *CONVOLUTION2, long double *W_C2, long double *POOLING2){
 	free(INPUT);
 	free(LAYER);
 	free(OUTPUT);
@@ -84,6 +103,13 @@ void free_all(long double *INPUT,long double *LAYER,long double *OUTPUT,long dou
 	free(Z_l);
 	free(ans);
 	free(eta);
+	free(IMAGE);
+	free(CONVOLUTION);
+	free(W_C);
+	free(POOLING);
+	free(CONVOLUTION2);
+	free(W_C2);
+	free(POOLING2);
 }
 
 void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT,int run, int pas,
@@ -141,7 +167,7 @@ void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT,int ru
 
 	///////////////////////
 	else{
-				printf("L'image est n'est pas cancéreuse                                ----\n");
+				printf("L'image n'est pas cancéreuse                                ----\n");
 	if (OUTPUT[1]-OUTPUT[0] <= 0){
 		if(fabs(OUTPUT[1]-OUTPUT[0]) > 0.8){
 				printf("Le réseau détermine que l'image n'est pas cancéreuse            ----\n");
@@ -158,7 +184,7 @@ void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT,int ru
 			printf("NB BON : %d\n",*bon);
 			printf("NB FAUX : %d\n",*faux);
 			printf("NB NULL : %d\n",*null);
-	}
+		}
 	}
 		else if (OUTPUT[1]-OUTPUT[0] >= 0){
 			if(fabs(OUTPUT[1]-OUTPUT[0]) > 0.8){
@@ -168,7 +194,7 @@ void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT,int ru
 				printf("NB BON : %d\n",*bon);
 				printf("NB FAUX : %d\n",*faux);
 				printf("NB NULL : %d\n",*null);
-		}
+			}
 			else{
 				printf("Le réseau ne peut pas conclure convenablement                   0000\n");
 				printf("NULL !\n\n");
@@ -176,8 +202,8 @@ void resultat(long double *OUTPUT,long double *SOLUTION,long double *COUT,int ru
 				printf("NB BON : %d\n",*bon);
 				printf("NB FAUX : %d\n",*faux);
 				printf("NB NULL : %d\n",*null);
+			}
 		}
-		}
- }
+	}
 }
 }

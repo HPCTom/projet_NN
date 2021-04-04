@@ -1,7 +1,95 @@
 #include "NN_fct.h"
 
+void convolution(long double *W_C, long double *CONVOLUTION, long double *IMAGE){
+	for(int i=0; i<(TAILLE_IMAGE-2); i++){
+		for (int j=0; j<(TAILLE_IMAGE-2); j++){
+			int offset2 = i*(TAILLE_IMAGE-2)+j;
+			for(int x=0; x<3; x++){
+				for(int y=0; y<3; y++){
+					int offset = x*3+y;
+					CONVOLUTION[offset2]= relu(W_C[offset] * IMAGE[TAILLE_IMAGE*(x+i)+y+j]);
+				}
+			}
+		}
+	}
+}
+
+void pooling(long double *CONVOLUTION, long double *POOLING){
+	int compare, compare2;
+	for(int k=0; k<TAILLE_POOL; k++){
+		for (int i=0; i<TAILLE_IMAGE-2; i+=2){
+			for (int j=0; j<TAILLE_IMAGE-2; j+=2){
+				int offset = (TAILLE_IMAGE-2)*i+j;
+				if(CONVOLUTION[offset]<CONVOLUTION[offset+1]){
+					compare = CONVOLUTION[offset+1];
+				}
+				else{
+					compare = CONVOLUTION[offset];
+				}
+				offset += TAILLE_IMAGE-2;
+				if(CONVOLUTION[offset]<CONVOLUTION[offset+1]){
+					compare2 = CONVOLUTION[offset+1];
+				}
+				else{
+					compare2 = CONVOLUTION[offset];
+				}
+				if(compare < compare2){
+					POOLING[k] = compare2;
+				}
+				else{
+					POOLING[k] = compare;
+				}
+			}
+		}
+	}
+}
+
+void convolution2(long double *W_C2, long double *CONVOLUTION2, long double *POOLING){
+	for(int i=0; i<(DIM_POOL-2); i++){
+		for (int j=0; j<(DIM_POOL-2); j++){
+			int offset2 = i*(DIM_POOL-2)+j;
+			for(int x=0; x<3; x++){
+				for(int y=0; y<3; y++){
+					int offset = x*3+y;
+					CONVOLUTION2[offset2] = relu(W_C2[offset] * POOLING[DIM_POOL*(x+i)+y+j]);
+				}
+			}
+		}
+	}
+}
+
+void pooling2(long double *CONVOLUTION2, long double *POOLING2){
+	int compare, compare2;
+	for(int k=0; k<TAILLE_POOLII; k++){
+		for (int i=0; i<DIM_POOL-2; i+=2){
+			for (int j=0; j<DIM_POOL-2; j+=2){
+				int offset = (DIM_POOL-2)*i+j;
+				if(CONVOLUTION2[offset]<CONVOLUTION2[offset+1]){
+					compare = CONVOLUTION2[offset+1];
+				}
+				else{
+					compare = CONVOLUTION2[offset];
+				}
+				offset += DIM_POOL-2;
+				if(CONVOLUTION2[offset]<CONVOLUTION2[offset+1]){
+					compare2 = CONVOLUTION2[offset+1];
+				}
+				else{
+					compare2 = CONVOLUTION2[offset];
+				}
+				if(compare < compare2){
+					POOLING2[k] = compare2;
+				}
+				else{
+					POOLING2[k] = compare;
+				}
+			}
+		}
+	}
+}
+
 void front_prop(long double *Z_L, long double *Z_l, long double *INPUT,
-                long double *LAYER, long double *OUTPUT, long double *b_layer,
+								long double *LAYER, long double *OUTPUT, long double *b_layer,
                 long double *b_output,long double* W_L,long double* W_O){
 		//premiere propagation Input à Layer
 		for (int i=0; i<TAILLE_LAYER; i++){

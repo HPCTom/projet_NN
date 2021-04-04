@@ -10,8 +10,12 @@
 
 #define NB_LAYER 1
 
-#define TAILLE_INPUT  2500
-#define TAILLE_LAYER  20
+#define TAILLE_IMAGE 50
+#define TAILLE_INPUT 144 //A CHANGÉ APRES INTRO CONVOLUTION
+#define TAILLE_POOL 576 // (TAILLE_CONVOLUTION = 2304) / 4 = 5760
+#define DIM_POOL 24
+#define TAILLE_POOLII 144 // TAILLE_POOL/4 = 144
+#define TAILLE_LAYER 20
 #define TAILLE_OUTPUT 2
 
 void presentation(int pas){
