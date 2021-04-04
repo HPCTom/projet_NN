@@ -76,8 +76,8 @@ void process_file(void)
   	png_byte* row = row_pointers[y];
     for (x=0; x<width; x++) {
     	png_byte* ptr = &(row[x*4]);
+			//int offset = width*x+y;
       moy[x][y] = (ptr[0] + ptr[1] + ptr[2])/3;
-      ptr[0] = moy[x][y];
 		}
 	}
 
@@ -85,7 +85,7 @@ void process_file(void)
 
 }
 
-int PNG_to_INPUT(long double *INPUT, long double *SOLUTION,int* nb_0, int* nb_1){
+int PNG_to_INPUT(long double *IMAGE, long double *SOLUTION,int* nb_0, int* nb_1){
 	char chemin[100];
 	char nom[100];
 	strcpy(chemin,"Data");
@@ -122,14 +122,14 @@ int PNG_to_INPUT(long double *INPUT, long double *SOLUTION,int* nb_0, int* nb_1)
  int k =0;
 		for (int x=0; x < 50; x++){
 			for (int y=0; y< 50; y++){
-				INPUT[k] = (moy[x][y]+1)/(256);
+				IMAGE[k] = (moy[x][y]+1)/(256);
 				// printf("moy[%d][%d] = %Lf\n",x,y,(moy[x][y]+1)/(256));
 				// printf("pas d'erreur pour i = %d ; x = %d, y = %d, INPUT = %Lf\n",k,x,y,INPUT[k]);
 				k++;
-				if(INPUT[k] == 0){
+				//if(INPUT[k] == 0){
 					//printf("INPUT EST ZERO a la pos i %d \n", i);
 					//printf("[%d - %d] MOY %f \n",x,y,moy[x][y]);
-				}
+				//}
 	//printf("Input[%d], valeur =  %f \n",i,INPUT[i]); //tableau INPUT rangé de gauche à droite ligne par ligne
 			}
 		}
