@@ -36,9 +36,15 @@ void init_Convolution2(long double *CONVOLUTION2){
 	}
 }
 
-void init_Layer(long double *LAYER){
+void init_Layer(long double *LAYER, long double *LAYERII, long double *LAYERIII){
   for (int j=0; j<TAILLE_LAYER; j = j+1){
     LAYER[j] = (rand()%100000)/100000.0;
+	}
+	for (int j=0; j<TAILLE_LAYERII; j++){
+		LAYERII[j] = (rand()%100000)/100000.0;
+	}
+	for (int j=0; j<TAILLE_LAYERIII; j++){
+		LAYERIII[j] = (rand()%100000)/100000.0;
 	}
 }
 
@@ -48,11 +54,24 @@ void init_Output(long double *OUTPUT){
 	}
 }
 
-void init_W(long double *W_L, long double *W_O, long double *W_C, long double *W_C2){
+void init_W(long double *W_L, long double *W_LII, long double *W_LIII,
+						long double *W_O, long double *W_C, long double *W_C2){
 		for (int i=0; i<TAILLE_LAYER; i = i+1){
 			for (int j=0; j<TAILLE_INPUT; j = j+1){
         int offset = i * TAILLE_INPUT + j;
 				W_L[offset] = (rand()%100000)/100000.0;
+			}
+		}
+		for (int i=0; i<TAILLE_LAYERII; i++){
+			for(int j=0; j<TAILLE_LAYER; j++){
+				int offset = i*TAILLE_LAYER + j;
+				W_LII[offset] = (rand()%100000)/100000.0;
+			}
+		}
+		for (int i=0; i<TAILLE_LAYERIII; i++){
+			for (int j=0; j<TAILLE_LAYERII; j++){
+				int offset = i*TAILLE_LAYERII + j;
+				W_LIII[offset] = (rand()%100000)/100000.0;
 			}
 		}
 		for (int i=0; i<TAILLE_OUTPUT; i = i+1){

@@ -8,15 +8,18 @@
 #define PNG_DEBUG 3
 #include <png.h>
 
-#define NB_LAYER 1
-
-#define TAILLE_IMAGE 50
-#define TAILLE_INPUT 144 //A CHANGÉ APRES INTRO CONVOLUTION
-#define TAILLE_POOL 576 // (TAILLE_CONVOLUTION = 2304) / 4 = 5760
-#define DIM_POOL 24
-#define TAILLE_POOLII 144 // TAILLE_POOL/4 = 144
-#define TAILLE_LAYER 20
-#define TAILLE_OUTPUT 2
+#define NB_LAYER 3
+//revérifier les tailles il y a des erreurs de calcul
+#define TAILLE_IMAGE 50 //IMAGE 50X50 DONC 50 EST UNE DIMENSION DE L'IMAGE
+#define TAILLE_POOL 576 // (TAILLE_CONVOLUTION = 2304) / 4 = 576
+#define DIM_POOL 24 //POOL est une matrice 24x24
+//CONVOLUTION2 est donc une matrice de 22*22 = 484
+#define TAILLE_POOLII 121 // TAILLE_CONVOLUTION2/4 = 121
+#define TAILLE_INPUT 121 //A CHANGÉ APRES INTRO CONVOLUTION
+#define TAILLE_LAYER 80
+#define TAILLE_LAYERII 40
+#define TAILLE_LAYERIII 20
+#define TAILLE_OUTPUT 1
 
 void presentation(int pas){
   printf(("Le réseau est un réseau Fully Connected avec sigmoid et est composé de:\n\t 1 input de %d neuronnes (images 50x50 pixels) \n\t %d middlelayer de %d neuronnes \n\t 1 output de %d neuronnes\n"),TAILLE_INPUT,NB_LAYER,TAILLE_LAYER,TAILLE_OUTPUT);

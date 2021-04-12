@@ -111,12 +111,12 @@ int PNG_to_INPUT(long double *IMAGE, long double *SOLUTION,int* nb_0, int* nb_1)
 	}
 	if((strstr(nom,"ss0")!= NULL)){ // Non cancéreu
 		SOLUTION[0]=0.0;
-		SOLUTION[1]=1.0;
+		//SOLUTION[1]=1.0;
 		*nb_0 = *nb_0 + 1;
 	}
 	else if((strstr(nom,"ss1"))!=NULL){ //cancéreu
 		SOLUTION[0]=1.0;
-		SOLUTION[1]=0.0;
+		//SOLUTION[1]=0.0;
 		*nb_1 = *nb_1 + 1;
 	}
  int k =0;
