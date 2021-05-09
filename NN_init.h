@@ -75,8 +75,8 @@ void init_W(long double *W_L, long double *W_LII, long double *W_LIII,
 			}
 		}
 		for (int i=0; i<TAILLE_OUTPUT; i = i+1){
-			for (int j=0; j<TAILLE_LAYERIII; j = j+1){
-        int offset = i*TAILLE_LAYERIII + j;
+			for (int j=0; j<TAILLE_LAYER; j = j+1){
+        int offset = i * TAILLE_LAYER + j;
 				W_O[offset] = (rand()%100000)/100000.0;
 			}
 		}
@@ -93,4 +93,90 @@ void init_W(long double *W_L, long double *W_LII, long double *W_LIII,
 				W_C2[offset] = (rand()%100000)/100000.0;
 			}
 		}
+}
+
+/*************************************************************
+void init_matrix_rand() initialise une matrice avec des
+valeurs aléaoite
+@matrix:tableau de la matirce
+@taille: taille du tableau
+***************************************************************/
+void init_matrix_rand( long double *matrix,int taille){
+  int k;
+  for(k=0; k<taille;k++){
+      matrix[k] = (rand()%100000)/100000.0;
+    }
+}
+
+/*****************************************************************
+init_weight() initialise une mtrice tout simplement
+*****************************************************************/
+void init_weight(LAYER_T *layer){
+  init_matrix_rand(layer->weight,layer->dim_w);
+}
+
+/*******************************************
+  init_b(): initialise les valeurs des biais
+   des hidden layers
+  @ b: le tableau de biais
+  @ Taille_b: taille du tableau
+  ******************************************/
+void init_b(long double *b, int Taille_b){
+  for (int j=0; j<Taille_b; j = j+1){
+    b[j] = 1.0;
+	}
+}
+
+/***************************************
+  init_layer_zeros() : remet a zeros
+  les valeurs des neuronnes
+  @layer: la structure du layer
+****************************************/
+void init_layer_zeros(LAYER_T *layer){
+  for (int k=0; k < layer->size; k++ ){
+    layer->neuron[k] = 0.0;
+  }
+}
+
+/***************************************
+  init_layer_zeros() : les valeurs des
+  neuronnes sont données aléatoirement
+  @layer: la structure du layer
+****************************************/
+
+void init_layer_rand(LAYER_T *layer){
+  for (int j=0; j<layer->size; j = j+1){
+    layer->neuron[j] = (rand()%100000)/100000.0;
+  }
+}
+
+/*************************************
+init_layer(), initalise la couche
+par appel des fonction:
+init_b(), init_layer_zeros() et
+init_layer_rand()
+@ layer: la couche de neurone layer
+***********************************/
+
+void init_layer(LAYER_T *layer){
+  init_layer_zeros(layer);
+  init_layer_rand(layer);
+  init_b(layer->bias, layer->size);
+}
+
+/*************************************
+  init_neuralNet() initialisera la
+  structuredu reseaux de neuronnes
+  @neuralNet: type neuralNet_t
+  *************************************/
+
+void init_neuralNet(neuralNet_t *neuralNet){
+  int i;
+  for(i=0; i<neuralNet->nbr_hidd;i++){
+    init_layer(&neuralNet->layer[i]);
+    init_layer_rand(&neuralNet->layer[i]);
+    init_weight(&neuralNet->layer[i]);
+  }
+  int t =sizeof(neuralNet->w_out)/sizeof(long double);
+  init_matrix_rand(neuralNet->w_out,t);
 }
