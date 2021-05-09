@@ -1,42 +1,42 @@
 #include "Struct.h"
 
-void init_b(long double *b, int Taille_b){
+void init_b(double *b, int Taille_b){
   for (int j=0; j<Taille_b; j = j+1){
     b[j] = 1.0;
 	}
 }
 
-void init_Pooling(long double *POOLING){
+void init_Pooling(double *POOLING){
 	for(int k=0; k<TAILLE_POOL; k++){
 		POOLING[k] = 0;
 	}
 }
 
-void init_Pooling2(long double *POOLING2){
+void init_Pooling2(double *POOLING2){
 	for (int k=0; k<TAILLE_POOLII; k++){
 		POOLING2[k] = 0;
 	}
 }
 
-void init_Input(long double *INPUT){
+void init_Input(double *INPUT){
   for (int j=0; j<TAILLE_INPUT; j = j+1){
     INPUT[j] = (rand()%100000)/100000.0;
 	}
 }
 
-void init_Convolution(long double *CONVOLUTION){
+void init_Convolution(double *CONVOLUTION){
 	for (int j=0; j<pow(TAILLE_IMAGE-2,2); j++){
 		CONVOLUTION[j] = (rand()%100000)/100000.0;//possible car matrice en row ou col major et carrée
 	}
 }
 
-void init_Convolution2(long double *CONVOLUTION2){
+void init_Convolution2(double *CONVOLUTION2){
 	for (int j=0; j<pow(DIM_POOL-2,2); j++){
 		CONVOLUTION2[j] = (rand()%100000)/100000.0;
 	}
 }
 
-void init_Layer(long double *LAYER, long double *LAYERII, long double *LAYERIII){
+void init_Layer(double *LAYER, double *LAYERII, double *LAYERIII){
   for (int j=0; j<TAILLE_LAYER; j = j+1){
     LAYER[j] = (rand()%100000)/100000.0;
 	}
@@ -48,14 +48,14 @@ void init_Layer(long double *LAYER, long double *LAYERII, long double *LAYERIII)
 	}
 }
 
-void init_Output(long double *OUTPUT){
+void init_Output(double *OUTPUT){
 	for (int j=0; j<TAILLE_OUTPUT; j = j+1){
 		OUTPUT[j] = (rand()%100000)/100000.0;
 	}
 }
 
-void init_W(long double *W_L, long double *W_LII, long double *W_LIII,
-						long double *W_O, long double *W_C, long double *W_C2){
+void init_W(double *W_L, double *W_LII, double *W_LIII,
+						double *W_O, double *W_C, double *W_C2){
 		for (int i=0; i<TAILLE_LAYER; i = i+1){
 			for (int j=0; j<TAILLE_INPUT; j = j+1){
         int offset = i * TAILLE_INPUT + j;

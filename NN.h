@@ -1,6 +1,6 @@
 #include "NN_fct.h"
 
-void convolution(long double *W_C, long double *CONVOLUTION, long double *IMAGE){
+void convolution(double *W_C, double *CONVOLUTION, double *IMAGE){
 	for(int i=0; i<(TAILLE_IMAGE-2); i++){
 		for (int j=0; j<(TAILLE_IMAGE-2); j++){
 			int offset2 = i*(TAILLE_IMAGE-2)+j;
@@ -14,7 +14,7 @@ void convolution(long double *W_C, long double *CONVOLUTION, long double *IMAGE)
 	}
 }
 
-void pooling(long double *CONVOLUTION, long double *POOLING){
+void pooling(double *CONVOLUTION, double *POOLING){
 	int compare, compare2;
 	for(int k=0; k<TAILLE_POOL; k++){
 		for (int i=0; i<TAILLE_IMAGE-2; i+=2){
@@ -44,7 +44,7 @@ void pooling(long double *CONVOLUTION, long double *POOLING){
 	}
 }
 
-void convolution2(long double *W_C2, long double *CONVOLUTION2, long double *POOLING){
+void convolution2(double *W_C2, double *CONVOLUTION2, double *POOLING){
 	for(int i=0; i<(DIM_POOL-2); i++){
 		for (int j=0; j<(DIM_POOL-2); j++){
 			int offset2 = i*(DIM_POOL-2)+j;
@@ -58,7 +58,7 @@ void convolution2(long double *W_C2, long double *CONVOLUTION2, long double *POO
 	}
 }
 
-void pooling2(long double *CONVOLUTION2, long double *POOLING2){
+void pooling2(double *CONVOLUTION2, double *POOLING2){
 	int compare, compare2;
 	for(int k=0; k<TAILLE_POOLII; k++){
 		for (int i=0; i<DIM_POOL-2; i+=2){
@@ -88,12 +88,12 @@ void pooling2(long double *CONVOLUTION2, long double *POOLING2){
 	}
 }
 
-void front_prop(long double *Z_L,long double *Z_lIII,long double *Z_lII,
-								long double *Z_l, long double *INPUT,long double *LAYER,
-								long double *LAYERII, long double *LAYERIII, long double *OUTPUT,
-								long double *b_L, long double *b_LII, long double *b_LIII,
-								long double *b_output,long double* W_L, long double *W_LII,
-								long double *W_LIII, long double* W_O, mpi_decomp_t *mdi, mpi_decomp_t *mdl1, mpi_decomp_t* mdl2){
+void front_prop(double *Z_L,double *Z_lIII,double *Z_lII,
+								double *Z_l, double *INPUT,double *LAYER,
+								double *LAYERII, double *LAYERIII, double *OUTPUT,
+								double *b_L, double *b_LII, double *b_LIII,
+								double *b_output,double* W_L, double *W_LII,
+								double *W_LIII, double* W_O, mpi_decomp_t *mdi, mpi_decomp_t *mdl1, mpi_decomp_t* mdl2){
 		//premiere propagation Input à Layer
 //MPI_Barrier(MPI_COMM_WORLD);
 		for (int i=mdl1->mpi_ideb; i<mdl1->mpi_ifin; i++){
@@ -145,44 +145,44 @@ MPI_Barrier(MPI_COMM_WORLD);
 		}
 }
 
-void error_output(long double *Z_L,long double *ERROR_OUTPUT,
-                  long double *SOLUTION,long double *OUTPUT){
+void error_output(double *Z_L,double *ERROR_OUTPUT,
+                  double *SOLUTION,double *OUTPUT){
   for (int j=0; j<TAILLE_OUTPUT; j = j+1){
     ERROR_OUTPUT[j] = (OUTPUT[j]-SOLUTION[j])*d_sigmoid(Z_L[j]);
   }
 }
 
-void error_layerIII(long double *ans3, long double *W_OT, long double *ERROR_LAYERIII,
-                  	long double *ERROR_OUTPUT, long double *Z_lIII){
+void error_layerIII(double *ans3, double *W_OT, double *ERROR_LAYERIII,
+                  	double *ERROR_OUTPUT, double *Z_lIII){
   multiplAV(W_OT, ERROR_OUTPUT, ans3, TAILLE_LAYERIII, TAILLE_OUTPUT);
   for (int j=0; j<TAILLE_LAYERIII; j = j+1){
     ERROR_LAYERIII[j] = ans3[j]*d_sigmoid(Z_lIII[j]);
   }
 }
 
-void error_layerII(long double *ans2, long double *W_LIIIT, long double *ERROR_LAYERII,
-									 long double *ERROR_LAYERIII, long double *Z_lII){
+void error_layerII(double *ans2, double *W_LIIIT, double *ERROR_LAYERII,
+									 double *ERROR_LAYERIII, double *Z_lII){
 	multiplAV(W_LIIIT, ERROR_LAYERIII, ans2, TAILLE_LAYERII, TAILLE_LAYERIII);
 	for (int j=0; j<TAILLE_LAYERII; j++){
 		ERROR_LAYERII[j] = ans2[j]*d_sigmoid(Z_lII[j]);
 	}
 }
 
-void error_layer(long double *ans, long double *W_LIIT, long double *ERROR_LAYER,
- 								 long double *ERROR_LAYERII, long double *Z_l){
+void error_layer(double *ans, double *W_LIIT, double *ERROR_LAYER,
+ 								 double *ERROR_LAYERII, double *Z_l){
 	multiplAV(W_LIIT, ERROR_LAYERII, ans, TAILLE_LAYER, TAILLE_LAYERII);
 	for (int j=0; j< TAILLE_LAYER; j++){
 		ERROR_LAYER[j] = ans[j]*d_sigmoid(Z_l[j]);
 	}
 }
 
-void backprop(long double *W_L, long double *W_LII, long double *W_LIII,
-	 						long double *W_O, long double *b_L, long double *b_LII,
-							long double *b_LIII, long double *b_O, long double *eta,
-							long double *ERROR_OUTPUT, long double *ERROR_LAYERIII,
-							long double *ERROR_LAYERII, long double *ERROR_LAYER,long double *INPUT,
-							long double *LAYER, long double *LAYERII, long double *LAYERIII,
-							long double *OUTPUT, mpi_decomp_t *mdi, mpi_decomp_t *mdl1, mpi_decomp_t* mdl2){
+void backprop(double *W_L, double *W_LII, double *W_LIII,
+	 						double *W_O, double *b_L, double *b_LII,
+							double *b_LIII, double *b_O, double *eta,
+							double *ERROR_OUTPUT, double *ERROR_LAYERIII,
+							double *ERROR_LAYERII, double *ERROR_LAYER,double *INPUT,
+							double *LAYER, double *LAYERII, double *LAYERIII,
+							double *OUTPUT, mpi_decomp_t *mdi, mpi_decomp_t *mdl1, mpi_decomp_t* mdl2){
 
   // modification BIAIS et POIDS pour OUTPUT
   for (int j=0; j<TAILLE_OUTPUT; j = j+1){

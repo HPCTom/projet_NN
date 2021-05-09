@@ -18,9 +18,9 @@ png_structp png_ptr;
 png_infop info_ptr;
 int number_of_passes;
 png_bytep * row_pointers;
-long double moy[50][50];
+double moy[50][50];
 
 
 void read_png_file(char* file_name);
 void process_file(void);
-int PNG_to_INPUT(long double *IMAGE, long double *SOLUTION,int* nb_0,int* nb_1);
+int PNG_to_INPUT(double *IMAGE, double *SOLUTION,int* nb_0,int* nb_1);

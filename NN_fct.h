@@ -1,14 +1,14 @@
 #include "NN_init.h"
 
-long double sigmoid(long double x){
+double sigmoid(double x){
 	return 1 / (1 + exp(-x));
 }
 
-long double d_sigmoid(long double x){
+double d_sigmoid(double x){
 	return sigmoid(x) * (1 - sigmoid(x));
 }
 
-long double relu(long double x){
+double relu(double x){
 	if (x<0){
 	 	return 0;
 	}
@@ -17,7 +17,7 @@ long double relu(long double x){
 	}
 }
 
-long double d_relu(long double x){
+double d_relu(double x){
 	if (x<0){
 		return 0;
 	}
@@ -26,7 +26,7 @@ long double d_relu(long double x){
 	}
 }
 
-void transpose(long double *W_XT,long double *W_X, int TAILLEONE,
+void transpose(double *W_XT,double *W_X, int TAILLEONE,
 							 int TAILLETWO){
 		//fct qui transpose une matrice stockée dans un tableau 1D
 		for(int i = 0; i < TAILLEONE; i++){
@@ -38,7 +38,7 @@ void transpose(long double *W_XT,long double *W_X, int TAILLEONE,
 		}
 	}
 
-void multiplAV(long double *A, long double *V, long double *ans,
+void multiplAV(double *A, double *V, double *ans,
 	 						 int TAILLEONE, int TAILLETWO){
 //fct qui effectue une mutiliplication matrice vecteur pour une matrice stockée dans un tableau 1D
   int row, columns;
@@ -52,7 +52,7 @@ void multiplAV(long double *A, long double *V, long double *ans,
   }
 }
 
-void fct_cout(long double *SOLUTION,long double *OUTPUT,long double *COUT, int run){
+void fct_cout(double *SOLUTION,double *OUTPUT,double *COUT, int run){
 	//Calcul le cout pour la condtion d'arret
 	COUT[0] = 0;
   for (int j=0; j<TAILLE_OUTPUT; j = j+1){
@@ -61,7 +61,7 @@ void fct_cout(long double *SOLUTION,long double *OUTPUT,long double *COUT, int r
   COUT[0] = COUT[0]/2;
 }
 
-void fct_eta(long double *eta,int run){
+void fct_eta(double *eta,int run){
 	//Taux d'apprentissage
 	if(run%100000 == 0){
 		eta[0] = eta[0] - (eta[0]*5/100);
@@ -69,27 +69,27 @@ void fct_eta(long double *eta,int run){
 
 }
 
-void mem_0(long double *LAYER, long double *LAYERII, long double *LAYERIII,
-	 				 long double *OUTPUT){
+void mem_0(double *LAYER, double *LAYERII, double *LAYERIII,
+	 				 double *OUTPUT){
 	//réinitialise LAYER et OUTPUT à 0 pour la front_prop
-	memset(LAYER,0.0,TAILLE_LAYER*sizeof(long double));
-	memset(LAYERII, 0.0, TAILLE_LAYERII*sizeof(long double));
-	memset(LAYERIII, 0.0, TAILLE_LAYERIII*sizeof(long double));
-	memset(OUTPUT,0.0,TAILLE_OUTPUT*sizeof(long double));
+	memset(LAYER,0.0,TAILLE_LAYER*sizeof(double));
+	memset(LAYERII, 0.0, TAILLE_LAYERII*sizeof(double));
+	memset(LAYERIII, 0.0, TAILLE_LAYERIII*sizeof(double));
+	memset(OUTPUT,0.0,TAILLE_OUTPUT*sizeof(double));
 }
 
-void free_all(long double *INPUT,long double *LAYER, long double *LAYERII,
-	 						long double *LAYERIII, long double *OUTPUT,long double *SOLUTION,
-							long double *COUT,long double *ERROR_OUTPUT,long double *ERROR_LAYERIII,
-							long double *ERROR_LAYERII, long double *ERROR_LAYER, long double *W_L,
-							long double *W_LII, long double *W_LIII, long double *W_O,
-							long double *W_OT, long double *W_LIIIT, long double *W_LIIT,
-							long double *b_L, long double *b_LII, long double *b_LIII,
-							long double *b_O,long double *Z_L,long double *Z_lIII, long double *Z_lII,
-							long double *Z_l, long double *ans3, long double *ans2, long double *ans,
-							long double *eta, long double *IMAGE, long double *CONVOLUTION,
-							long double *W_C, long double *POOLING, long double *CONVOLUTION2,
-							long double *W_C2, long double *POOLING2){
+void free_all(double *INPUT,double *LAYER, double *LAYERII,
+	 						double *LAYERIII, double *OUTPUT,double *SOLUTION,
+							double *COUT,double *ERROR_OUTPUT,double *ERROR_LAYERIII,
+							double *ERROR_LAYERII, double *ERROR_LAYER, double *W_L,
+							double *W_LII, double *W_LIII, double *W_O,
+							double *W_OT, double *W_LIIIT, double *W_LIIT,
+							double *b_L, double *b_LII, double *b_LIII,
+							double *b_O,double *Z_L,double *Z_lIII, double *Z_lII,
+							double *Z_l, double *ans3, double *ans2, double *ans,
+							double *eta, double *IMAGE, double *CONVOLUTION,
+							double *W_C, double *POOLING, double *CONVOLUTION2,
+							double *W_C2, double *POOLING2){
 	//free(INPUT);
 	free(LAYER);
 	free(LAYERII);
@@ -129,16 +129,16 @@ void free_all(long double *INPUT,long double *LAYER, long double *LAYERII,
 	free(POOLING2);
 }
 
-void resultat(long double *OUTPUT, long double *SOLUTION, long double *COUT,
+void resultat(double *OUTPUT, double *SOLUTION, double *COUT,
 							int run, int pas, int nb_0, int nb_1, int *fauxpos, int *fauxneg,
 							int *bonneg, int *bonpos, float *bon, float *faux, float *null){
 if(run % pas == 0){
 		printf("                                                  		           run : %d\n",run);
 		printf("                                                  			  NB 0 : %d\n",nb_0);
 		printf("                                                  			  NB 1 : %d\n",nb_1);
-printf("OUTPUT = %Lf \n",OUTPUT[0]);
-//printf("OUTPUT[1] = %Lf \n",OUTPUT[1]);
-printf("COUT = %Lf \n",COUT[0]);
+printf("OUTPUT = %f \n",OUTPUT[0]);
+//printf("OUTPUT[1] = %f \n",OUTPUT[1]);
+printf("COUT = %f \n",COUT[0]);
 
 ///////////////////////
 if (SOLUTION[0] == 1.0){
@@ -250,7 +250,7 @@ else{
 }
 
 
-void resultat2(long double *OUTPUT, long double *SOLUTION, long double *COUT,
+void resultat2(double *OUTPUT, double *SOLUTION, double *COUT,
 							int run, int pas, int nb_0, int nb_1, int *fauxpos, int *fauxneg,
 							int *bonneg, int *bonpos, float *bon, float *faux, float *null){
 	//Affichage des runs
@@ -258,9 +258,9 @@ void resultat2(long double *OUTPUT, long double *SOLUTION, long double *COUT,
 			printf("                                                  		           run : %d\n",run+1);
 			printf("                                                  			  NB 0 : %d\n",nb_0);
 			printf("                                                  			  NB 1 : %d\n",nb_1);
-	printf("OUTPUT[0] = %Lf \n",OUTPUT[0]);
-	printf("OUTPUT[1] = %Lf \n",OUTPUT[1]);
-	printf("COUT = %Lf \n",COUT[0]);
+	printf("OUTPUT[0] = %f \n",OUTPUT[0]);
+	printf("OUTPUT[1] = %f \n",OUTPUT[1]);
+	printf("COUT = %f \n",COUT[0]);
 
 	///////////////////////
 	if (SOLUTION[0] == 1.0){
