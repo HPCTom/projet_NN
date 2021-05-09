@@ -1,0 +1,70 @@
+
+#include "mesure.h"
+
+Apres MPI_Init :    
+    double temps_mpi_mesure_mesure[N];
+    clock_t temps_clock_mesure_mesure[N];
+
+    nb_run = 0;
+    max_itération = 100;
+
+    While(N<max_itération){
+
+    double t1 =  MPI_Wtime();
+    clock_t a = rdtsc();
+        
+        !!! EXECUTION DU CODE A MESURER !!!
+
+    double t2 =  MPI_Wtime();
+    clock_t b = rdtsc();
+            
+    nb_run++;
+    }
+        
+
+
+Pour stabilité:
+
+    BASH:   for i in {0..100}; do mpirun -np 4 ./lbm $i ; done
+    
+    Code:   debut_mesure_stabilite(t1,a,rank); (Apres MPI_Comm_rank)
+
+                !!! EXECUTION DU CODE A MESURER !!!
+
+            fin_mesure_stabilite(t1,a,t2,b,rank,temps_mpi,temps_clock,nb_run,N,atoi(argv[1])); (Apres debut_mesure_scalabilte)
+
+Pour opti:
+
+    BASH:   mpirun -np 4 ./lbm "Sans opti"
+    
+    Code:   debut_mesure_opti(t1,a,rank); (Apres MPI_Comm_rank)
+
+                !!! EXECUTION DU CODE A MESURER !!!
+
+            fin_mesure_opti(t1,a,t2,b,rank,temps_mpi,temps_clock,nb_run,N,argv[1]); (Apres debut_mesure_opti)
+
+    BASH:   mpirun -np 4 ./lbm "Avec opti"
+
+    Code:   Meme code...
+
+Pour scalabilité:
+
+    BASH:   for i in {1..8}; do mpirun -np $i ./lbm; done
+
+    Code:   debut_mesure_scalabilite(t1,a,rank); (Apres MPI_Comm_rank)
+
+                !!! EXECUTION DU CODE A MESURER !!!
+
+            fin_mesure_scalabilite(t1,a,t2,b,rank,temps_mpi,temps_clock,nb_run,N,comm_size); (Apres debut_mesure_opti)
+
+Pour mesure_mesure:
+
+    BASH:   Bash de la mesure
+
+    Code:   debut_mesure_mesure(t1,a,rank);
+
+                !!! EXECUTION DE LA MESURE !!!
+
+            double t2_mm =  MPI_Wtime();
+	        clock_t b_mm = rdtsc();
+            fin_mesure_mesure(t1,a,t2_mm,b_mm,rank,temps_mpi_mesure_mesure,temps_clock_mesure_mesure,nb_run,N);
