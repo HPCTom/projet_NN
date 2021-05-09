@@ -2,10 +2,22 @@
 
 long double sigmoid(long double x){
 	return 1 / (1 + exp(-x));
+	//if (x<0){
+	// 	return 0;
+	//}
+	//else{
+	// 	return x;
+	//}
 }
 
 long double d_sigmoid(long double x){
 	return sigmoid(x) * (1 - sigmoid(x));
+	//if (x<0){
+	 //	return 0;
+	//}
+	//else{
+	 //	return 1;
+	//}
 }
 
 long double relu(long double x){
