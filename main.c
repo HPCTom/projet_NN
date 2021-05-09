@@ -9,48 +9,48 @@ int main(int argc, char *argv[])
 {
 srand(time(NULL));
  clock_t debut = clock();
-long double* IMAGE = malloc(pow(TAILLE_IMAGE,2)*sizeof(long double));
-long double* CONVOLUTION = malloc(pow(TAILLE_IMAGE-2,2)*sizeof(long double)); //Convolution matrix
-long double* POOLING = malloc(TAILLE_POOL*sizeof(long double));
-long double* CONVOLUTION2 = malloc(pow(DIM_POOL-2,2)*sizeof(long double));
-long double* POOLING2 = malloc(TAILLE_POOLII*sizeof(long double));
-long double* INPUT =  malloc(TAILLE_INPUT*sizeof(long double)); //Input Layer
-long double* LAYER = malloc(TAILLE_LAYER*sizeof(long double)); // First Layer
-long double* LAYERII = malloc(TAILLE_LAYERII*sizeof(long double)); //Second Layer
-long double* LAYERIII = malloc(TAILLE_LAYERIII*sizeof(long double)); //Third Layer
-long double* OUTPUT = malloc(TAILLE_OUTPUT*sizeof(long double)); //
-long double* SOLUTION = malloc(TAILLE_OUTPUT*sizeof(long double));
-long double* COUT = malloc(1*sizeof(long double));
-long double* ERROR_OUTPUT = malloc(TAILLE_OUTPUT*sizeof(long double));
-long double* ERROR_LAYERIII = malloc(TAILLE_LAYERIII * sizeof(long double));
-long double* ERROR_LAYERII = malloc(TAILLE_LAYERII * sizeof(long double));
-long double* ERROR_LAYER = malloc(TAILLE_LAYER*sizeof(long double));
+double* IMAGE = malloc(pow(TAILLE_IMAGE,2)*sizeof(double));
+double* CONVOLUTION = malloc(pow(TAILLE_IMAGE-2,2)*sizeof(double)); //Convolution matrix
+double* POOLING = malloc(TAILLE_POOL*sizeof(double));
+double* CONVOLUTION2 = malloc(pow(DIM_POOL-2,2)*sizeof(double));
+double* POOLING2 = malloc(TAILLE_POOLII*sizeof(double));
+double* INPUT =  malloc(TAILLE_INPUT*sizeof(double)); //Input Layer
+double* LAYER = malloc(TAILLE_LAYER*sizeof(double)); // First Layer
+double* LAYERII = malloc(TAILLE_LAYERII*sizeof(double)); //Second Layer
+double* LAYERIII = malloc(TAILLE_LAYERIII*sizeof(double)); //Third Layer
+double* OUTPUT = malloc(TAILLE_OUTPUT*sizeof(double)); //
+double* SOLUTION = malloc(TAILLE_OUTPUT*sizeof(double));
+double* COUT = malloc(1*sizeof(double));
+double* ERROR_OUTPUT = malloc(TAILLE_OUTPUT*sizeof(double));
+double* ERROR_LAYERIII = malloc(TAILLE_LAYERIII * sizeof(double));
+double* ERROR_LAYERII = malloc(TAILLE_LAYERII * sizeof(double));
+double* ERROR_LAYER = malloc(TAILLE_LAYER*sizeof(double));
 
-long double *W_C = malloc(3*3*sizeof(long double)); //poids de convolution
-long double *W_C2 = malloc(3*3*sizeof(long double)); // poids convolution2
-long double *W_L = malloc(TAILLE_LAYER * TAILLE_INPUT * sizeof(long double));
-long double *W_LII = malloc(TAILLE_LAYERII * TAILLE_LAYER * sizeof(long double));
-long double *W_LIII = malloc(TAILLE_LAYERIII * TAILLE_LAYERII * sizeof(long double));
-long double *W_O = malloc(TAILLE_OUTPUT * TAILLE_LAYERIII * sizeof(long double));
-long double *W_OT = malloc(TAILLE_LAYERIII * TAILLE_OUTPUT * sizeof(long double));
-long double *W_LIIIT = malloc(TAILLE_LAYERII * TAILLE_LAYERIII * sizeof(long double));
-long double *W_LIIT = malloc(TAILLE_LAYER * TAILLE_LAYERII * sizeof(long double));
-long double *W_LT = malloc(TAILLE_LAYER * TAILLE_LAYERII * sizeof(long double));
+double *W_C = malloc(3*3*sizeof(double)); //poids de convolution
+double *W_C2 = malloc(3*3*sizeof(double)); // poids convolution2
+double *W_L = malloc(TAILLE_LAYER * TAILLE_INPUT * sizeof(double));
+double *W_LII = malloc(TAILLE_LAYERII * TAILLE_LAYER * sizeof(double));
+double *W_LIII = malloc(TAILLE_LAYERIII * TAILLE_LAYERII * sizeof(double));
+double *W_O = malloc(TAILLE_OUTPUT * TAILLE_LAYERIII * sizeof(double));
+double *W_OT = malloc(TAILLE_LAYERIII * TAILLE_OUTPUT * sizeof(double));
+double *W_LIIIT = malloc(TAILLE_LAYERII * TAILLE_LAYERIII * sizeof(double));
+double *W_LIIT = malloc(TAILLE_LAYER * TAILLE_LAYERII * sizeof(double));
+double *W_LT = malloc(TAILLE_LAYER * TAILLE_LAYERII * sizeof(double));
 
-long double *b_L = malloc(TAILLE_LAYER * sizeof(long double));
-long double *b_LII = malloc(TAILLE_LAYERII * sizeof(long double));
-long double *b_LIII = malloc(TAILLE_LAYERIII * sizeof(long double));
-long double *b_O = malloc(TAILLE_OUTPUT * sizeof(long double));
+double *b_L = malloc(TAILLE_LAYER * sizeof(double));
+double *b_LII = malloc(TAILLE_LAYERII * sizeof(double));
+double *b_LIII = malloc(TAILLE_LAYERIII * sizeof(double));
+double *b_O = malloc(TAILLE_OUTPUT * sizeof(double));
 
-long double *Z_L = malloc(TAILLE_OUTPUT * sizeof(long double)); //Dans sigmoid output
-long double *Z_lIII = malloc(TAILLE_LAYERIII * sizeof(long double));//Dans sigmoid layer III
-long double *Z_lII = malloc(TAILLE_LAYERII * sizeof(long double));//Dans sigmoid layer II
-long double *Z_l = malloc(TAILLE_LAYER * sizeof(long double)); //Dans sigmoid layer
+double *Z_L = malloc(TAILLE_OUTPUT * sizeof(double)); //Dans sigmoid output
+double *Z_lIII = malloc(TAILLE_LAYERIII * sizeof(double));//Dans sigmoid layer III
+double *Z_lII = malloc(TAILLE_LAYERII * sizeof(double));//Dans sigmoid layer II
+double *Z_l = malloc(TAILLE_LAYER * sizeof(double)); //Dans sigmoid layer
 
-long double *ans3 = malloc(TAILLE_LAYERIII * sizeof(long double)); //Dans ERROR_LAYERIII
-long double *ans2 = malloc(TAILLE_LAYERII * sizeof(long double)); //Dans ERROR_LAYERII
-long double *ans = malloc(TAILLE_LAYER * sizeof(long double));
-long double *eta = malloc(1*sizeof(long double)); //Taux d'apprentissage à modifier dans NN_fct.h (fct_eta)
+double *ans3 = malloc(TAILLE_LAYERIII * sizeof(double)); //Dans ERROR_LAYERIII
+double *ans2 = malloc(TAILLE_LAYERII * sizeof(double)); //Dans ERROR_LAYERII
+double *ans = malloc(TAILLE_LAYER * sizeof(double));
+double *eta = malloc(1*sizeof(double)); //Taux d'apprentissage à modifier dans NN_fct.h (fct_eta)
 
 init_Convolution(CONVOLUTION);
 init_Pooling(POOLING);
@@ -116,7 +116,7 @@ presentation(pas);
 // convolution2(W_C2,CONVOLUTION2, POOLING);
 // pooling2(CONVOLUTION2, POOLING2);
 // */
-//memcpy(INPUT, IMAGE, pow(TAILLE_IMAGE,2)*sizeof(long double)+1);
+//memcpy(INPUT, IMAGE, pow(TAILLE_IMAGE,2)*sizeof(double)+1);
   INPUT = IMAGE;
 //
   front_prop(Z_L, Z_lIII, Z_lII, Z_l,INPUT,LAYER,LAYERII,LAYERIII,OUTPUT,b_L,b_LII, b_LIII,b_O,

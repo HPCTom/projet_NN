@@ -85,7 +85,7 @@ void process_file(void)
 
 }
 
-int PNG_to_INPUT(long double *IMAGE, long double *SOLUTION,int* nb_0, int* nb_1){
+int PNG_to_INPUT(double *IMAGE, double *SOLUTION,int* nb_0, int* nb_1){
 	char chemin[100];
 	char nom[100];
 	strcpy(chemin,"Data");
@@ -123,8 +123,8 @@ int PNG_to_INPUT(long double *IMAGE, long double *SOLUTION,int* nb_0, int* nb_1)
 		for (int x=0; x < 50; x++){
 			for (int y=0; y< 50; y++){
 				IMAGE[k] = (moy[x][y]+1)/(256);
-				// printf("moy[%d][%d] = %Lf\n",x,y,(moy[x][y]+1)/(256));
-				// printf("pas d'erreur pour i = %d ; x = %d, y = %d, INPUT = %Lf\n",k,x,y,INPUT[k]);
+				// printf("moy[%d][%d] = %f\n",x,y,(moy[x][y]+1)/(256));
+				// printf("pas d'erreur pour i = %d ; x = %d, y = %d, INPUT = %f\n",k,x,y,INPUT[k]);
 				k++;
 				//if(INPUT[k] == 0){
 					//printf("INPUT EST ZERO a la pos i %d \n", i);
