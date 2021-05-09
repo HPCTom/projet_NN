@@ -76,8 +76,8 @@ void process_file(void)
   	png_byte* row = row_pointers[y];
     for (x=0; x<width; x++) {
     	png_byte* ptr = &(row[x*4]);
+			//int offset = width*x+y;
       moy[x][y] = (ptr[0] + ptr[1] + ptr[2])/3;
-      ptr[0] = moy[x][y];
 		}
 	}
 
@@ -85,39 +85,51 @@ void process_file(void)
 
 }
 
-int PNG_to_INPUT(long double *INPUT, long double *SOLUTION){
+int PNG_to_INPUT(long double *IMAGE, long double *SOLUTION,int* nb_0, int* nb_1){
 	char chemin[100];
 	char nom[100];
 	strcpy(chemin,"Data");
-	// FILE* ptr_file = NULL;
-	// if((ptr_file = fopen("liste.txt","r")) == NULL){
-	// 	lireDossierRec(chemin);
-	// 	// fclose(ptr_file);
-	// }
+	FILE* ptr_file = NULL;
+	/*
+	if((ptr_file = fopen("liste.txt","r")) == NULL){
+		lireDossierRec(chemin);
+		// fclose(ptr_file);
+	}
+	*/
 	if ((piocherFichier(nom))==1){  //il verifie si c'est un dossier ou fichier
+		if ((strstr(nom,"/0/")) !=0){
+			float R =  (float)(rand()%10000) / 100 ;
+			if (R <= 28.38){
+				while((strstr(nom,"/0/")) !=NULL){
+					piocherFichier(nom);
+				}
+			}
+		}
 		//printf("nom = %s\n",nom);
 		read_png_file(nom);
 		process_file();
 	}
-	if((strstr(nom,"ss0")!= NULL)){
+	if((strstr(nom,"ss0")!= NULL)){ // Non cancéreu
 		SOLUTION[0]=0.0;
 		SOLUTION[1]=1.0;
+		*nb_0 = *nb_0 + 1;
 	}
-	else if((strstr(nom,"ss1"))!=NULL){
+	else if((strstr(nom,"ss1"))!=NULL){ //cancéreu
 		SOLUTION[0]=1.0;
 		SOLUTION[1]=0.0;
+		*nb_1 = *nb_1 + 1;
 	}
  int k =0;
 		for (int x=0; x < 50; x++){
 			for (int y=0; y< 50; y++){
-				INPUT[k] = (moy[x][y]+1)/(256);
+				IMAGE[k] = (moy[x][y]+1)/(256);
 				// printf("moy[%d][%d] = %Lf\n",x,y,(moy[x][y]+1)/(256));
 				// printf("pas d'erreur pour i = %d ; x = %d, y = %d, INPUT = %Lf\n",k,x,y,INPUT[k]);
 				k++;
-				if(INPUT[k] == 0){
+				//if(INPUT[k] == 0){
 					//printf("INPUT EST ZERO a la pos i %d \n", i);
 					//printf("[%d - %d] MOY %f \n",x,y,moy[x][y]);
-				}
+				//}
 	//printf("Input[%d], valeur =  %f \n",i,INPUT[i]); //tableau INPUT rangé de gauche à droite ligne par ligne
 			}
 		}
