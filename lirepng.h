@@ -23,4 +23,4 @@ long double moy[50][50];
 
 void read_png_file(char* file_name);
 void process_file(void);
-int PNG_to_INPUT(long double *INPUT, long double *SOLUTION);
+int PNG_to_INPUT(long double *IMAGE, long double *SOLUTION,int* nb_0,int* nb_1);
