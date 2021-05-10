@@ -13,7 +13,7 @@ MPI_Init(&argc,&argv);
 //MPI_Comm_size(MPI_COMM_WORLD,&size);
 
 double debut = MPI_Wtime();
-double** IMAGE = malloc(100*sizeof(*double));
+double** IMAGE = malloc(100*sizeof(double));
 for(int i = 0 ; i<100; i++){
   IMAGE[i]=malloc(pow(TAILLE_IMAGE,2)*sizeof(double));
 }
@@ -43,7 +43,7 @@ double *W_O = malloc(TAILLE_OUTPUT * TAILLE_LAYERIII * sizeof(double));
 double *W_OT = malloc(TAILLE_LAYERIII * TAILLE_OUTPUT * sizeof(double));
 double *W_LIIIT = malloc(TAILLE_LAYERII * TAILLE_LAYERIII * sizeof(double));
 double *W_LIIT = malloc(TAILLE_LAYER * TAILLE_LAYERII * sizeof(double));
-double *W_LT = malloc(TAILLE_LAYER * TAILLE_LAYERII * sizeof(double));
+//double *W_LT = malloc(TAILLE_LAYER * TAILLE_LAYERII * sizeof(double));
 
 double *b_L = malloc(TAILLE_LAYER * sizeof(double));
 double *b_LII = malloc(TAILLE_LAYERII * sizeof(double));
@@ -99,7 +99,7 @@ mpi_decomp_init(TAILLE_INPUT, &decomp_input);
  int nb_run = 0;
  int N = 301;
  while(nb_run < N){
-   int i =0
+   int i =0;
    // double temps_mpi[N];
    // clock_t temps_clock[N];
    // double temps_mpi_mesure_mesure[N];

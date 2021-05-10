@@ -7,7 +7,7 @@
 #include <stdarg.h>
 #define PNG_DEBUG 3
 #include <png.h>
-#include "mpi_decomp.h"
+#include "mpi_decomp.c"
 #include <mpi.h>
 
 #define NB_LAYER 3
