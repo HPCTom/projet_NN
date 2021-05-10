@@ -90,8 +90,8 @@ int N = 10000;
 int rank, comm_size;
 double temps_mpi[N];
 clock_t temps_clock[N];
-create_data_opti();
-create_brut_data_opti();
+//create_data_opti();
+//create_brut_data_opti();
 MPI_Init( &argc, &argv );
 init_Input(INPUT);
  while(nb_run < N){
@@ -101,7 +101,7 @@ init_Input(INPUT);
  	MPI_Comm_size( MPI_COMM_WORLD, &comm_size );
   double t1 = MPI_Wtime(); //MPI_Wtime()
   clock_t a = rdtsc();
-  debut_mesure_opti(t1,a,0);
+  //debut_mesure_opti(t1,a,0);
  	//debut_mesure_scalabilite(t1,a,rank);
  	//debut_mesure_stabilite(t1,a,0);
 
@@ -149,7 +149,7 @@ init_Input(INPUT);
   double t2 = MPI_Wtime();
   clock_t b = rdtsc();
   //debut_mesure_mesure(t2,b,rank);
-  fin_mesure_opti(t1,a,t2,b,0,temps_mpi,temps_clock,nb_run,N,argv[1]);
+  //fin_mesure_opti(t1,a,t2,b,0,temps_mpi,temps_clock,nb_run,N,argv[1]);
   resultat2(OUTPUT,SOLUTION,COUT,run,pas,nb_0,nb_1,&fauxpos,&fauxneg,&bonneg,&bonpos,&bon,&faux,&null);
   run+= 1;
   nb_run++;
